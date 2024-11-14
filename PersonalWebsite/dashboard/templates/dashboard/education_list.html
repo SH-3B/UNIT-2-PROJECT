@@ -1,0 +1,53 @@
+{% extends 'AboutMyself/base.html' %}
+{% block title %}Education List{% endblock %}
+
+{% block content %}
+<br><br><br>
+<section>
+<section class="education-section">
+  <div class="container">
+    <h1 class="title">Education List</h1>
+
+    <!-- Search Form -->
+    <div class="search-form">
+      <form method="GET" class="search-bar">
+        <input type="text" name="q" placeholder="Search for education" value="{{ request.GET.q }}" class="search-input">
+        <button type="submit" class="search-btn">Search</button>
+      </form>
+    </div>
+
+    <!-- Education Table -->
+    <div class="education-table">
+      <table>
+        <thead>
+          <tr>
+            <th>University:</th>
+            <th>Description:</th>
+            <th>Graduation Year:</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for education in educations %}
+          <tr>
+            <td>{{ education.uni_name }}</td>
+            <td>{{ education.description }}</td>
+            <td>{{ education.year }}</td>
+            <td class="action-buttons">
+              <a href="{% url 'dashboard:update_education' education.pk %}" class="btn btn-edit">Edit</a>
+              <a href="{% url 'dashboard:delete_education' education.pk %}" class="btn btn-delete">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Add New Education Link -->
+    <div class="add-education">
+      <a href="{% url 'dashboard:add_education' %}" class="btn btn-add">Add New Education</a>
+    </div>
+  </div>
+</section>
+</section>
+{% endblock %}

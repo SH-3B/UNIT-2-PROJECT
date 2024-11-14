@@ -1,0 +1,101 @@
+{% extends 'AboutMyself/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+<style>
+    @keyframes appear{
+        from{
+            opacity: 0;
+            scale: 0.5;
+        }
+        to{
+            opacity: 1;
+            scale: 1;
+        }
+    }
+    .block{
+        animation: appear linear;
+        animation-timeline:view();
+    }
+</style>
+
+{% block content %}
+<section class="home section-background block" id="home">
+    <div class="home-content">
+        <h1>Hi, It's <span>Shouq</span></h1>
+        <h3 class="text-animation">I'm a <span></span></h3>
+        <p>Hello! I'm a passionate Full-Stack Developer focused on building high-performance applications and websites. I specialize in both front-end and back-end development, using the latest technologies to create intuitive, efficient, and scalable solutions. With a strong commitment to best practices, I craft software that solves real-world problems.</p>
+        <div class="social-icons">
+            <a href="#"><i class='bx bxl-linkedin' ></i></a>
+            <a href="#"><i class='bx bxl-github' ></i></a>
+            <a href="#"><i class='bx bxl-instagram-alt' ></i></a>
+            <a href="#"><i class='bx bxl-twitter' ></i></a>
+        </div>
+        <div class="btn-group">
+            <a href="{% url 'contact' %}" class="btn-home">Contact</a>
+        </div>
+    </div>
+    <div class="home-img">
+    </div>
+</section>
+
+<section class="education1 block" id="education">
+    <h2 class="heading">Education</h2>
+    <div class="timeline-items">
+        {% for education in education_list|slice:":2" %}
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">{{ education.year }}</div>
+            <div class="timeline-content">
+                <h3>{{ education.uni_name }}</h3>
+                <p>{{ education.description }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No education records yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="services block" id="services" style="background-color: rgba(159, 215, 249, 0.41)">
+    <h2 class="heading">My Services</h2>
+    <div class="services-container">
+        {% for service in services|slice:":2" %}
+        <div class="services-box" style="background-color:aliceblue;">
+            <div class="services-info">
+                <h4>{{ service.title }}</h4>
+                <p>{{ service.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="testimonials block" id="testimonials">
+    <div class="testimonials-box">
+        <h2 class="heading">Personal Interests</h2>
+        <div class="wrapper">
+            {% for interest in interests|slice:":3" %}
+                <div class="testimonials-item">
+                    {% if interest.image %}
+                        <img src="{{ interest.image.url }}" alt="{{ interest.name }}">
+                    {% else %}
+                        <img src="{% static 'images/default-image.png' %}" alt="No img">
+                    {% endif %}
+                    <h2>{{ interest.name }}</h2>
+                    <div class="rating">
+                        <!--Add your rating-->
+                    </div>
+                    <p>{{ interest.description }}</p>
+                </div>
+            {% empty %}
+                <p>No testimonials available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<script src="{% static 'scripts/script.js' %}"></script>
+
+
+{% endblock %}
+
+<!--test page-->

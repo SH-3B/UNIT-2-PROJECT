@@ -1,0 +1,20 @@
+{% extends 'AboutMyself/base.html' %}
+{% block title %}Delete Education{% endblock %}
+
+{% block content %}
+
+<section>
+  <br><br><br>
+  <div class="confirm-container">
+    <h2>Are you sure you want to delete this education record?</h2>
+    <p><strong>{{ education.uni_name }}</strong></p>
+    <p>{{ education.description }}</p>
+    <p>({{ education.year }})</p>
+    <form method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn2 btn-danger">Delete</button>
+      <a href="{% url 'dashboard:education_list' %}" class="btn2 btn-secondary2">Cancel</a>
+    </form>
+  </div>
+</section>
+{% endblock %}

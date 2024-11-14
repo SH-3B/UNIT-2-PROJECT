@@ -1,0 +1,24 @@
+{% extends 'AboutMyself/base.html' %}
+{% block title %}Update Interest{% endblock %}
+
+{% block content %}
+
+<section>
+  <div class="contact-us-card">
+      <div class="contact-form">
+  <div class="form-container">
+    <h1 class="title">Update Interest</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Update Interest</button>
+      <a href="{% url 'dashboard:interest_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+  </div>
+  </div>
+</section>
+
+{% endblock %}
+
+

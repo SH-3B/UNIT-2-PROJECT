@@ -1,0 +1,23 @@
+{% extends 'AboutMyself/base.html' %}
+{% block title %}Update Education{% endblock %}
+
+{% block content %}
+
+<section>
+  <div class="contact-us-card">
+    <div class="contact-form">
+      <h1 class="title">Update Education</h1>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-primary">Update Education</button>
+          <a href="{% url 'dashboard:education_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+  
