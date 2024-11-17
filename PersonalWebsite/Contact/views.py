@@ -9,7 +9,7 @@ from django.core.mail import EmailMessage
 
 
 def contact_view(request):
-    if request.method == 'POST':
+    if request.method == 'POST': 
         form = ContactMessageForm(request.POST)
         if form.is_valid():
             contact_message = form.save()

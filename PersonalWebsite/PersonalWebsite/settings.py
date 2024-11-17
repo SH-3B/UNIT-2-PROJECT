@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-#ef)0cm5$)vrh)tc@g8&l+^20#c&-8!11j+je+%jmk9@9&of5z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["https://themestoredep-production.up.railway.app", "http://127.0.0.1"]
 
 
 # Application definition
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -121,6 +123,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Directory where static files are stored (during development)
 STATICFILES_DIRS = [
