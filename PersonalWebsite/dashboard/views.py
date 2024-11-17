@@ -1,11 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.db.models import Q
-from AboutMyself.models import Education, Interest, Service
+from .models import Education, Interest, Service
 from .forms import EducationForm, InterestForm, ServiceForm
 
 def dashboard_home(request):
-    # Get counts for education, interest, and service
     education_count = Education.objects.count()
     interest_count = Interest.objects.count()
     service_count = Service.objects.count()
@@ -24,7 +23,7 @@ def education_list(request):
     query = request.GET.get('q', '')
     educations = Education.objects.filter(
         Q(uni_name__icontains=query) | Q(description__icontains=query)
-    ).order_by('-year')
+    ).order_by('graduation_year')
 
     return render(request, 'dashboard/education_list.html', {'educations': educations})
 
@@ -45,7 +44,7 @@ def update_education(request, pk):
     education = get_object_or_404(Education, pk=pk)
     
     if request.method == 'POST':
-        form = EducationForm(request.POST, instance=education)
+        form = EducationForm(request.POST,request.FILES, instance=education)
         if form.is_valid():
             form.save()
             return redirect('dashboard:education_list')
@@ -66,38 +65,56 @@ def delete_education(request, pk):
 
 def interest_list(request):
     query = request.GET.get('q', '')
-    interests = Interest.objects.filter(
-        Q(name__icontains=query) | Q(description__icontains=query)
-    ).order_by('name')
+    interests = Interest.objects.all()
+    search_query = request.GET.get('q', '')
 
+   
+    if search_query:
+        interests = Interest.objects.filter(name__icontains=search_query) | Interest.objects.filter(quote__icontains=search_query)
+    else:
+        interests = Interest.objects.all()
+
+    
     return render(request, 'dashboard/interest_list.html', {'interests': interests})
 
 
 def add_interest(request):
     if request.method == 'POST':
-        form = InterestForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('dashboard:interest_list')
-    else:
-        form = InterestForm()
+        form = InterestForm(request.POST, request.FILES)
 
+        if form.is_valid():
+            form.save()  
+            return redirect('dashboard:interest_list') 
+        else:
+            print(form.errors)  
+            return render(request, 'dashboard/add_interest.html', {'form': form})
+    
+    else:
+        form = InterestForm() 
+
+   
     return render(request, 'dashboard/add_interest.html', {'form': form})
 
 
 def update_interest(request, pk):
     interest = get_object_or_404(Interest, pk=pk)
-    
+
     if request.method == 'POST':
-        form = InterestForm(request.POST, instance=interest)
+        form = InterestForm(request.POST, request.FILES, instance=interest)  
+
         if form.is_valid():
-            form.save()
-            return redirect('dashboard:interest_list')
+            form.save()  
+            return redirect('dashboard:interest_list')  
+        else:
+            
+            print(form.errors)
+            return render(request, 'dashboard/update_interest.html', {'form': form})
+    
+  
     else:
-        form = InterestForm(instance=interest)
+        form = InterestForm(instance=interest) 
 
     return render(request, 'dashboard/update_interest.html', {'form': form})
-
 
 def delete_interest(request, pk):
     interest = get_object_or_404(Interest, pk=pk)
@@ -105,8 +122,6 @@ def delete_interest(request, pk):
         interest.delete()
         return redirect('dashboard:interest_list')
     return render(request, 'dashboard/delete_interest.html', {'interest': interest})
-
-
 
 def service_list(request):
     query = request.GET.get('q', '')

@@ -1,40 +1,65 @@
-{% extends 'AboutMyself/base.html' %}
-
+{% extends 'about_myself/base.html' %}
+{% block title %}Message List{% endblock %}
 {% block content %}
-<br><br><br><br><br><br><br><br><br>
-<div class="contact-messages-card">
-    <h1>Messages from Users</h1>
-    {% if messages %}
-    <div class="contact-messages-list">
-        <ul>
-            {% for message in messages %}
-            <li class="contact-message">
-                <div class="contact-message-header">
-                    <div class="sender-info">
-                        <div class="avatar">
-                            <i class="fa fa-user-circle"></i>
-                        </div>
-                        <div class="sender-details">
-                            <strong>{{ message.name }}</strong>
-                            <p>{{ message.email }}</p>
-                        </div>
-                    </div>
-                    <span class="message-date">{{ message.created_at }}</span>
-                </div>
-                <div class="message-content">
-                    <h3>Subject: {{ message.subject }}</h3>
-                    <p>{{ message.message }}</p>
-                </div>
+<section>
+    <br><br><br>
+    <div class="filter-form">
+        <form method="GET" action="">
+            {% csrf_token %}
+            <label for="category">Filter by Category:</label>
+            <select name="category" id="category">
+                <option value="">All Categories</option>
+                {% for value, label in categories %}
+                    <option value="{{ value }}" {% if value == category_filter %} selected {% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
 
-               
-                <a href="{% url 'message_detail' message.id %}" class="reply-link">Reply</a>
-            </li>
-            {% endfor %}
-        </ul>
+            <label for="replied">Filter by Replied Status:</label>
+            <select name="replied" id="replied">
+                <option value="">All Messages</option>
+                <option value="replied" {% if replied_filter == 'replied' %} selected {% endif %}>Replied</option>
+                <option value="not_replied" {% if replied_filter == 'not_replied' %} selected {% endif %}>Not Replied</option>
+            </select>
+
+            <button type="submit">Filter</button>
+        </form>
     </div>
-    {% else %}
-    <br><br><br><br><br><br><br><br><br><br>
-    <p>No messages available.</p>
-    {% endif %}
-</div>
+
+    <div class="contact-messages-card">
+        <h1>Messages from Users</h1>
+        {% if messages %}
+        <div class="contact-messages-list">
+            <ul>
+                {% for message in messages %}
+                <li class="contact-message">
+                    <div class="contact-message-header">
+                        <div class="sender-info">
+                            <div class="avatar">
+                                <i class="fa fa-user-circle"></i>
+                            </div>
+                            <div class="sender-details">
+                                <strong>{{ message.name }}</strong>
+                                <p>{{ message.email }}</p>
+                            </div>
+                        </div>
+                        <span class="message-date">{{ message.created_at }}</span>
+                    </div>
+                    <div class="message-content">
+                        <h3>Subject: {{ message.subject }}</h3>
+                        <p>{{ message.message }}</p>
+                    </div>
+                    {% if message.is_replied %}
+                        <button class="reply-link fa fa-check-circle" disabled style="font-size: 15px;"></button>
+                    {% else %}
+                        <a href="{% url 'contact:message_detail' message.id %}" class="reply-link">Reply</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <p style="text-align: center; font-weight: bold; font-size: 14px;">No messages available.</p>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}

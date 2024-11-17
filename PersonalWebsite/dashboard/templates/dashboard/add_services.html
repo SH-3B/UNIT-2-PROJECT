@@ -1,4 +1,4 @@
-{% extends 'AboutMyself/base.html' %}
+{% extends 'about_myself/base.html' %}
 {%load static%}
 {% block title %}Add a New Service{% endblock %}
 
@@ -8,10 +8,10 @@
         <div class="contact-us-card">
             <div class="contact-form">
         <h1 class="heading">Add a New Service</h1>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }} 
-            <button type="submit" class="submit-button">Submit Service</button>
+            <button type="submit" class="submit-button">Add Service</button>
         </form>
             </div>
         </div>

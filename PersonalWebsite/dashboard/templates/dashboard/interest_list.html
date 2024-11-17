@@ -1,4 +1,4 @@
-{% extends 'AboutMyself/base.html' %}
+{% extends 'about_myself/base.html' %}
 {% block title %}Interest List{% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
   <div class="container">
     <h1 class="title">Your Interests</h1>
 
-    <!-- Search Form -->
+  
     <div class="search-form">
       <form method="GET" class="search-bar">
         <input type="text" name="q" placeholder="Search for interests" value="{{ request.GET.q }}" class="search-input">
@@ -17,21 +17,21 @@
       </form>
     </div>
 
-    <!-- Interest Table -->
+   
     <div class="interest-table">
       <table>
         <thead>
           <tr>
             <th>Interest Name</th>
             <th>Description</th>
-            <th>Actions</th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
           {% for interest in interests %}
           <tr>
             <td>{{ interest.name }}</td>
-            <td>{{ interest.description }}</td>
+            <td>{{ interest.quote }}</td>
             <td class="action-buttons">
               <a href="{% url 'dashboard:update_interest' interest.pk %}" class="btn btn-edit">Edit</a>
               <a href="{% url 'dashboard:delete_interest' interest.pk %}" class="btn btn-delete">Delete</a>
@@ -42,7 +42,7 @@
       </table>
     </div>
 
-    <!-- Add New Interest Link -->
+   
     <div class="add-interest">
       <a href="{% url 'dashboard:add_interest' %}" class="btn btn-add">Add New Interest</a>
     </div>

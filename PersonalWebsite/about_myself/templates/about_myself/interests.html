@@ -1,0 +1,91 @@
+{% extends 'about_myself/base.html' %}
+{% load static %}
+{% block title %}Interest{% endblock %}
+{% block content %}
+
+<section class="testimonials" id="testimonials">
+    <div class="testimonials-box">
+        <h2 class="heading">Personal Interests</h2>
+        <form method="GET" class="filter-form">
+            <div class="filter-row">
+              
+                <div class="filter-group">
+                    <label for="q" class="filter-label">Search</label>
+                    <input type="text" name="q" id="q" placeholder="Search for interests" value="{{ search_term }}" class="custom-search-input">
+                </div>
+    
+                <div class="filter-group">
+                    <label for="category" class="filter-label">Category</label>
+                    <select name="category" id="category" class="custom-select">
+                        <option value="">Select Category</option>
+                        {% for code, label in categories %}
+                            <option value="{{ code }}" {% if category_filter == code %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <button type="submit" class="filter-btn">Filter</button>
+                </div>
+            </div>
+        </form>
+
+        {% if interests %}
+        <div class="results-section">
+            <h2></h2>
+            <ul>
+            </ul>
+        </div>
+        {% else %}
+        <div class="no-results">
+            <p>No results found for your search.</p>
+        </div>
+        {% endif %}
+        <h2 class="heading"> </h2>
+        <div class="wrapper">
+            {% for interest in page_obj %}
+                <div class="testimonials-item">
+                  
+                    {% if interest.image %}
+                        <img src="{{ interest.image.url }}" alt="{{ interest.name }}">
+                    {% else %}
+                        <img src="{% static 'images/default-image.png' %}" alt="No img">
+                    {% endif %}
+                    
+                    
+                    <h2>{{ interest.name }}</h2>
+                    {% if interest.category == 'drink' or interest.category == 'city' %}
+                        <p>{{ interest.quote }}</p>
+                    {% elif interest.category == 'quote' %}
+                        <p><strong>Quote:</strong> {{ interest.quote }}</p>
+                        <p><strong>Why I Chose It:</strong> {{ interest.why_chose }}</p>
+                        <p><strong>Meaning:</strong> {{ interest.meaning }}</p>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No testimonials available.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1&q={{ search_term }}&category={{ category_filter }}">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}&q={{ search_term }}&category={{ category_filter }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&q={{ search_term }}&category={{ category_filter }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&q={{ search_term }}&category={{ category_filter }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+</section>
+
+{% endblock %}
+

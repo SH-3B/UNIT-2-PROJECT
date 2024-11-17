@@ -1,4 +1,4 @@
-{% extends 'AboutMyself/base.html' %}
+{% extends 'about_myself/base.html' %}
 {% block title %}Update Education{% endblock %}
 
 {% block content %}
@@ -11,8 +11,8 @@
         {% csrf_token %}
         {{ form.as_p }}
         <div class="form-buttons">
-          <button type="submit" class="btn btn-primary">Update Education</button>
-          <a href="{% url 'dashboard:education_list' %}" class="btn btn-secondary">Cancel</a>
+          <button type="submit" class="btn2 btn-primary">Update Education</button>
+          <a href="{% url 'dashboard:education_list' %}" class="btn2 btn-secondary2">Cancel</a>
         </div>
       </form>
     </div>

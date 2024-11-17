@@ -1,4 +1,4 @@
-{% extends 'AboutMyself/base.html' %}
+{% extends 'about_myself/base.html' %}
 {% block title %}Services List{% endblock %}
 {% block content %}
 <br><br><br>
@@ -7,7 +7,7 @@
   <div class="container">
     <h1 class="title">Your Services</h1>
 
-    <!-- Search Form -->
+   
     <div class="search-form">
       <form method="GET" class="search-bar">
         <input type="text" name="q" placeholder="Search for services" value="{{ request.GET.q }}" class="search-input">
@@ -15,14 +15,14 @@
       </form>
     </div>
 
-    <!-- Services Table -->
+    
     <div class="services-table">
       <table>
         <thead>
           <tr>
             <th>Service Title</th>
             <th>Description</th>
-            <th>Actions</th>
+            <th> </th>
           </tr>
         </thead>
         <tbody>
@@ -40,7 +40,7 @@
       </table>
     </div>
 
-    <!-- Add New Service Link -->
+    
     <div class="add-service">
       <a href="{% url 'dashboard:add_service' %}" class="btn btn-add">Add New Service</a>
     </div>

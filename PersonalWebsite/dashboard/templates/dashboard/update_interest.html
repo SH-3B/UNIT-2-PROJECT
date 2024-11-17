@@ -1,24 +1,79 @@
-{% extends 'AboutMyself/base.html' %}
+{% extends 'about_myself/base.html' %}
 {% block title %}Update Interest{% endblock %}
 
 {% block content %}
 
 <section>
   <div class="contact-us-card">
-      <div class="contact-form">
-  <div class="form-container">
-    <h1 class="title">Update Interest</h1>
-    <form method="POST">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Update Interest</button>
-      <a href="{% url 'dashboard:interest_list' %}" class="btn btn-secondary">Cancel</a>
-    </form>
-  </div>
-  </div>
+    <div class="contact-form">
+      <div class="form-container">
+        <h1 class="title">Update Interest</h1>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          
+          <div class="form-row">
+            <label for="id_category">Category</label>
+            {{ form.category }}
+          </div>
+          
+         
+          <div class="form-row">
+            <label for="id_name">Name</label>
+            {{ form.name }}
+          </div>
+
+          <div class="form-row">
+            <label for="id_quote">Description</label>
+            {{ form.quote }} 
+          </div>
+
+          
+          <div class="form-row" id="why_chose_field">
+            <label for="id_why_chose">Why Chose</label>
+            {{ form.why_chose }}
+          </div>
+
+          <div class="form-row" id="meaning_field">
+            <label for="id_meaning">Meaning</label>
+            {{ form.meaning }}
+          </div>
+
+         
+          <div class="form-row">
+            <label for="id_image">Image</label>
+            {% if form.instance.image %}
+                <img src="{{ form.instance.image.url }}" alt="Current Image" style="width: 100px; height: auto;">
+            {% endif %}
+            {{ form.image }} 
+        </div>
+
+          <div class="card-buttons">
+            <button type="submit" class="btn2 btn-primary">Update Interest</button>
+            <a href="{% url 'dashboard:interest_list' %}" class="btn2 btn-secondary2">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 
+<script>
+    function toggleConditionalFields() {
+        var category = document.getElementById("id_category").value; 
+        var whyChoseField = document.getElementById("why_chose_field");
+        var meaningField = document.getElementById("meaning_field");
+
+        if (category === "drink" || category === "city") {
+            whyChoseField.style.display = "none";
+            meaningField.style.display = "none";
+        } else {
+            whyChoseField.style.display = "block";
+            meaningField.style.display = "block";
+        }
+    }
+
+    window.onload = toggleConditionalFields;  
+    document.getElementById("id_category").addEventListener("change", toggleConditionalFields);  
+</script>
+
 {% endblock %}
-
-

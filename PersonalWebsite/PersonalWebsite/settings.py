@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'AboutMyself',
-    'Contact',
+    'about_myself',
+    'contact',
     'dashboard',
 ]
 
@@ -120,7 +120,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
- 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Directory where static files are stored (during development)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Points to the 'static' folder in the root of your project
+]
 
 
 # Default primary key field type
@@ -131,3 +136,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+'''
+*****Proper Gmail SMTP Setup******
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Gmail SMTP server
+EMAIL_PORT = 587               # Port for TLS (STARTTLS)
+EMAIL_USE_TLS = True           # Enable TLS encryption
+EMAIL_HOST_USER = 'your-email@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'your-app-password'  # Use an App Password (not your Gmail password)
+DEFAULT_FROM_EMAIL = 'your-email@gmail.com'  # Sender email address
+'''
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

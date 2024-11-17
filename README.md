@@ -35,14 +35,55 @@ A personal website is website that represents you , your work , your career , yo
 - UML (shared as a link or uploaded as a file) - You can use Lucid Charts or similar online UML design tool.
 
 ## (Project Name)
-(project description here.)
+PersonalWebsite(ShouqAbdullah)
 
 ## Features List
-- (list of features)
+1.Homepage:
+    -About Me
+    -Education Overview
+    -Services Overview
+    -Personal Interests
+
+2.Services Page:
+    -Service title and Descriptions
+    -button contact
+
+3.Contact Page:
+    Contact Form with the following fields:
+        -Name
+        -Email
+        -Subject
+        -How Can We Assist You
+        -Message
+        -Notification in form upon form submission
+
+4.Admin Dashboard:
+ -Manage Education:
+        -Add New Education Entry
+        -Edit Existing Education Entry
+        -Delete Education 
+ -Manage interests:
+        -Add New interests
+        -Edit Existing interests
+        -Delete interests
+ -Manage Services:
+        -Add New Service
+        -Edit Existing Service
+        -Delete Service
+-View and Manage Messages:
+    -Filter by Category:
+       -Services
+       -Feedback
+       -Questions
+    -Filter by Replied Status:
+        -All Messages
+        -Replied
+        -Not Replied
+    -View Messages from Contact Form like card and  mark as reply or not replyed 
 
 ## User Stories, Wireframes & UML links
 - (User stories document link here.)
-- (wireframe link here.)
+- [(wireframe link here.) ](https://www.figma.com/design/Em373rlkawHvby6v1RGPeZ/Personal-Website---shouq?node-id=0-1&t=uMTZpBUomnZNKQsE-1)
 - (UML link here.)
 
 

@@ -1,0 +1,21 @@
+{% extends 'about_myself/base.html' %}
+{%load static%}
+{% block title %}Services{% endblock %}
+
+{% block content %}
+
+<section class="services" id="services">
+    <h2 class="heading">Services</h2>
+    <div class="services-container">
+        {% for service in services %}
+        <div class="services-box">
+            <div class="services-info">
+                <h4>{{ service.title }}</h4>
+                <p>{{ service.description }}</p>
+                <a href="{% url 'contact:contact' %}" class="reply-link" style="background: none; "><i class="far fa-user-circle"></i> Contact Us</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

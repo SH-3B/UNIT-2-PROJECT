@@ -1,34 +1,88 @@
-{% extends 'AboutMyself/base.html' %}
-{% load static %}
+{% extends 'about_myself/base.html' %}
 {% block title %}Add Your Interest{% endblock %}
 
 {% block content %}
-
 <section>
     <div class="contact-us-card">
         <div class="contact-form">
             <h1 class="heading">Add Your Interest</h1>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        
-        <div class="interest-item">
-            <label for="id_name">Interest Name</label>
-            {{ form.name }}
-        </div>
 
-        <div class="interest-item">
-            <label for="id_description">Description</label>
-            {{ form.description }}
-        </div>
-        
-        <div class="interest-item">
-            <label for="id_image">Image (Optional)</label>
-            {{ form.image }}
-        </div>
-        <br>
-        <button type="submit" class="submit-button">Submit Interest</button>
-    </form>
+            
+            {% if form.errors %}
+                <ul class="error-list">
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <li>{{ field.label }}:
+                                {% for error in field.errors %}
+                                    <strong>{{ error }}</strong>
+                                {% endfor %}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+           
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+               
+                {{ form.category }}
+
+                
+                <div class="form-row">
+                    <label for="id_name">Name</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="form-row">
+                    <label for="id_quote">Description</label>
+                    {{ form.quote }}
+                </div>
+
+                
+                <div class="form-row" id="why_chose_field">
+                    <label for="id_why_chose">Why Chose</label>
+                    {{ form.why_chose }}
+                </div>
+
+                <div class="form-row" id="meaning_field">
+                    <label for="id_meaning">Meaning</label>
+                    {{ form.meaning }}
+                </div>
+
+               
+                <div class="form-row">
+                    <label for="id_image">Image</label>
+                    {{ form.image }}
+                </div>
+
+               
+                <button type="submit" class="submit-button">Add Interest</button>
+            </form>
         </div>
     </div>
 </section>
+
+<script>
+    
+    function toggleConditionalFields() {
+        var category = document.getElementById("id_category").value; 
+        var whyChoseField = document.getElementById("why_chose_field");
+        var meaningField = document.getElementById("meaning_field");
+
+        
+        if (category === "drink" || category === "city") {
+            whyChoseField.style.display = "none";
+            meaningField.style.display = "none";
+        } else {
+            whyChoseField.style.display = "block";
+            meaningField.style.display = "block";
+        }
+    }
+
+    window.onload = toggleConditionalFields;
+    document.getElementById("id_category").addEventListener("change", toggleConditionalFields);
+</script>
+
 {% endblock %}
