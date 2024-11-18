@@ -8,10 +8,11 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 """
 import sys
 import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'PersonalWebsite')))
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PersonalWebsite.settings')
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PersonalWebsite.settings')
+
 application = get_wsgi_application()
 
