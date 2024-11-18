@@ -12,7 +12,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PersonalWebsite.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PersonalWebsite.PersonalWebsite.settings')
 
 application = get_wsgi_application()
 
