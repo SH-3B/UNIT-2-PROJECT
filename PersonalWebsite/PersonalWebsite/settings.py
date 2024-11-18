@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'about_myself',
-    'PersonalWebsite.contact',
+    'contact',
     'dashboard',
 ]
 
