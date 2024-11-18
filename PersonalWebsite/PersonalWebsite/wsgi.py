@@ -9,6 +9,8 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+print("Current working directory:", os.getcwd())
+print("Python sys.path:", sys.path)
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PersonalWebsite.settings')
