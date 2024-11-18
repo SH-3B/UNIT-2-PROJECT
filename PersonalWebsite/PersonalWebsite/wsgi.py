@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 """
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'PersonalWebsite'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from django.core.wsgi import get_wsgi_application
 
