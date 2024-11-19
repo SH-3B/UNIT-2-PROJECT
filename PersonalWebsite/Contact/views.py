@@ -14,13 +14,13 @@ def contact_view(request):
         if form.is_valid():
             contact_message = form.save()
             messages.success(request, 'Your message has been sent successfully!')
-            return redirect('contact:contact')
+            return redirect('Contact:contact')
         else:
             messages.error(request, 'There was an error with your submission. Please try again.')
-            return render(request, 'contact/contact.html', {'form': form})
+            return render(request, 'Contact/contact.html', {'form': form})
     else:
         form = ContactMessageForm()
-    return render(request, 'contact/contact.html', {'form': form})
+    return render(request, 'Contact/contact.html', {'form': form})
 
 def message_list(request):
     category_filter = request.GET.get('category', '') 
@@ -38,7 +38,7 @@ def message_list(request):
 
     categories = ContactMessage.CATEGORY_CHOICES
 
-    return render(request, 'contact/message_list.html', {
+    return render(request, 'Contact/message_list.html', {
         'messages': messages,
         'categories': categories,
         'category_filter': category_filter,
@@ -77,6 +77,6 @@ def reply_to_message(request, message_id):
         except Exception as e:
             messages.error(request, f"An error occurred while sending the reply: {str(e)}")
 
-        return redirect('contact:message_list')   
+        return redirect('Contact:message_list')   
 
-    return render(request, 'contact/message_detail.html', {'message': message, 'replied': replied})
+    return render(request, 'Contact/message_detail.html', {'message': message, 'replied': replied})
